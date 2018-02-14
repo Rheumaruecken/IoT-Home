@@ -5,19 +5,18 @@
 
 /************************* WiFi Access Point *********************************/
 
-#define WLAN_SSID       "ito-router"
-#define WLAN_PASS       "#8sv*~O§yl2"
+#define WLAN_SSID       "GEHEIM"
+#define WLAN_PASS       "GEHEIM"
 #define LED             2
-
 
 /************************* Server config *************************************/
 
-#define FINGERPRINT     "EF B8 95 6E DB 9C 6D 72 0F B0 A0 BC 31 69 BB F4 D5 97 1B D9"
-#define CERT_NAME       "iot-cert"
+#define FINGERPRINT     "A1 A1 A1 A1 A1 A1 A1 A1 A1 A1 A1 A1 A1 A1 A1 A1 A1 A1 A1 A1"
+#define CERT_NAME       "GEHEIM"   //Common Name
 
 /************************** Global State *************************************/
 
-// WiFiClientSecure for SSL/TLS support
+// WiFiFlientSecure for SSL/TLS support
 WiFiClientSecure client;
 
 /*************************** Sketch Code ************************************/
@@ -29,8 +28,16 @@ void setup() {
   pinMode(LED, OUTPUT);
   digitalWrite(LED, LOW);
   Serial1.println("Starting Wifi connection...");
+ 
+  // set static ip part
+  IPAddress ipCLI (192, 168, 100, 101);
+  IPAddress ipGTW(192, 168, 100, 1);
+  IPAddress ipSUB(255, 255, 255, 0);
+  IPAddress ipDNS(192, 168, 100, 1);
+
   WiFi.begin(WLAN_SSID, WLAN_PASS);
-  WiFi.config(IPAddress(192,168,1,55), IPAddress(192,168,1,1), IPAddress(255,255,255,0), IPAddress(192,168,1,1));
+  WiFi.config(ipCLI, ipGTW, ipSUB, ipDNS);
+
   int failcounter = 300;
   Serial1.print("Waiting for a connection");
   while (WiFi.status() != WL_CONNECTED) {
@@ -48,7 +55,7 @@ void setup() {
   digitalWrite(LED, HIGH);
   Serial1.println("Wifi connected.");
   // connect to host
-  const char* host = "192.168.1.202";
+  const char* host = "192.168.100.10";
   int port         = 443;
   if (client.connect(host, port)) {
     Serial1.print("Connection to ");
@@ -58,7 +65,8 @@ void setup() {
     verifyFingerprint();
     // send GET request
     Serial1.println("Sending a message to the server:");
-    client.print(String("GET /") + " HTTP/1.1\r\n" +
+
+    client.print(String("GET /ESP-01.php?id=101&sensor=TasteSchlaf") + " HTTP/1.1\r\n" +
                  "Host: " + host + "\r\n" +
                  "Connection: close\r\n" +
                  "\r\n");
@@ -66,11 +74,12 @@ void setup() {
                  "Host: " + host + "\r\n" +
                  "Connection: close\r\n" +
                  "\r\n");
+
     blinkSent();
     delay(500);
     // get response
     int success = 0;
-    failcounter = 10000;
+    failcounter = 50000;
     while (client.connected()) {
       if (client.available()) {
         String line = client.readStringUntil('\n');
@@ -84,6 +93,7 @@ void setup() {
         blinkError();
         shutdown();
       }
+      delay(100);   // wait
       failcounter--;
     }
     if (success) {
