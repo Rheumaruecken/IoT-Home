@@ -100,8 +100,10 @@ Hausautomation mit einem RasPi
             ******************************************************
 #
 2.1.3 mariaDB
+#
       sudo apt-get install mariadb-server mariadb-client
 #
 2.1.4 PHPmyAdmin
+#
       sudo bash
       apt-get install phpmyadmin
