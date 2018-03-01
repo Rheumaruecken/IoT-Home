@@ -66,7 +66,7 @@ void setup() {
     // send GET request
     Serial1.println("Sending a message to the server:");
 
-    client.print(String("GET /ESP-01.php?id=101&sensor=TasteSchlaf") + " HTTP/1.1\r\n" +
+    client.print(String("GET /ESP-01.php?id=101&sensor=omaSchlaf") + " HTTP/1.1\r\n" +
                  "Host: " + host + "\r\n" +
                  "Connection: close\r\n" +
                  "\r\n");
