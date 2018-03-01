@@ -99,6 +99,8 @@ Hausautomation mit einem RasPi
             YOUR_MOTION_STREAM_PORT -> The port on your Raspberry Pi that you set Motion to stream to
             ******************************************************
 #
+	sudo service nginx reload
+#
 2.1.3 mariaDB
 #
       sudo apt-get install mariadb-server mariadb-client
