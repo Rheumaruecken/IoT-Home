@@ -20,7 +20,9 @@ Hausautomation mit einem RasPi
       32GB microSD
 #
 1.1.2 Router
+#
       GL-AR300M Mini Smart Router
+      UMTS-Stick
 #
 1.2 Sensoren
 #
