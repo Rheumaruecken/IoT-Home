@@ -49,9 +49,10 @@ Hausautomation mit einem RasPi
       sudo apt-get install php-fpm
 #
 2.1.2 nginx mit SSL (Port 443)
+#
       sudo apt-get install nginx
       sudo /etc/init.d/nginx start
-      
+ #     
       // Enable PHP in NGINX
       cd /etc/nginx
       sudo nano sites-enabled/default
