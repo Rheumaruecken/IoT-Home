@@ -26,18 +26,23 @@ Hausautomation mit einem RasPi
 #
 1.2 Sensoren
 #
-1.2.1 Taster
+1.2.1 Wetterstation
+1.2.2 Brandmeldeanlage
 #
-      Push-Button
+	Rauchmelder (MC145012) mit ESP-01 erweitert
+	- umgebaute Standard-Rauchmelder
 #
-1.2.2 Rauchmelder
+1.2.3 Alarmanlage
 #
+	Nottaster mit ESP-01
+	- umgebaute Push-Buttons
 #
 2 Software
 #
 2.1 Raspi
 #
 2.1.1 Linux
+#
       Download von Raspian
       Entpacken auf microSD
       
@@ -52,7 +57,7 @@ Hausautomation mit einem RasPi
 #
       sudo apt-get install nginx
       sudo /etc/init.d/nginx start
- #     
+      
       // Enable PHP in NGINX
       cd /etc/nginx
       sudo nano sites-enabled/default
@@ -109,3 +114,19 @@ Hausautomation mit einem RasPi
 #
       sudo bash
       apt-get install phpmyadmin
+#
+2.2 Programm
+#
+2.2.1 Wetterstation
+#
+2.2.2 Brandmeldeanlage
+#
+	ESP-01f.py
+	ESP8266-Feuer.ino
+#
+2.2.3 Alarmanlage
+#
+	bme280.py
+	ESP-01.py
+	ESP8266-Dash.ino
+#
